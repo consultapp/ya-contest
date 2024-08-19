@@ -28,6 +28,11 @@ const LANG = {
 
 let CURRENT_LANG = LANG.ru;
 
+changeLanguage = (l) => {
+  console.log("changed to:", l);
+  CURRENT_LANG = l;
+};
+
 const makeDynamicTranslations = (e) => {
   const prox = {};
   for (let k in e) {
@@ -42,7 +47,6 @@ const makeDynamicTranslations = (e) => {
   const result = new Proxy(prox, {
     get: function (obj, prop, _) {
       if (Array.isArray(obj[prop])) {
-        console.log("arrayaaaa");
         return obj[prop].map((item) => {
           if (item?.type === "dinamik") {
             return item.fn();
@@ -65,14 +69,10 @@ const dynamicTranslate = (key) => {
   return { type: "dinamik", fn: () => `${CURRENT_LANG}:${key}` };
 };
 
-changeLanguage = (l) => {
-  CURRENT_LANG = l;
-};
-
 const options = makeDynamicTranslations({
-  key1: dynamicTranslate("key1"),
-  key2: dynamicTranslate("key2"),
-  key3: dynamicTranslate("key3"),
+  key1: dynamicTranslate("key1111"),
+  key2: dynamicTranslate("key2222"),
+  key3: dynamicTranslate("key3333"),
 });
 
 console.log(options.key1); // Выводит 'ru:key1',
